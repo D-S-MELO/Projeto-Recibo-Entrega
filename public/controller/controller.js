@@ -82,7 +82,7 @@ function criaTabela() {
     novaLinha.attr('id', linhaNome);
 
     var colunaProduto = $('<td></td>').text(produto);
-    var colunaQuantidade = $('<td></td>').text(quantidade + ' Litros');
+    var colunaQuantidade = $('<td></td>').text(quantidade);
     var colunaExcluir = $('<td></td>');
 
     // Adicionar botão "Excluir" na nova linha
@@ -102,7 +102,7 @@ function criaTabela() {
     contadorLinhas++;
 
     // Limpar os campos de entrada de texto
-    $('#form_produto').prop('selectedIndex', 0);
+    $('#form_produto').val('');
     $('#form_qtd').val('');
   });
 }
