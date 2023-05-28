@@ -18,6 +18,8 @@ app.use(express.static(path.join(__dirname + '/public')));
 app.use('/', require('./routes/index'));
 
 //Configurações Servidor
-app.listen(process.env.PORT || 3000, function () {
-  console.log('Servidor Rodando');
-});
+const port = process.env.PORT || 3000;
+
+app.listen(port, () =>
+  console.log(`Server running on ${port}, http://localhost:${port}`)
+);
