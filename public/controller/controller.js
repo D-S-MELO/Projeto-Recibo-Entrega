@@ -26,7 +26,7 @@ function criaCampoAssinatura() {
   // Draws signature image from data URL and alters it with the given options
   signaturePad.fromDataURL('data:image/png;base64,iVBORw0K...', {
     ratio: 1,
-    width: 400,
+    width: 500,
     height: 200,
     xOffset: 100,
     yOffset: 50,
