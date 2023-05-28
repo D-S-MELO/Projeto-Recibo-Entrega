@@ -13,7 +13,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //Arquivos Estaticos
 app.use(express.static(path.join(__dirname + '/public')));
-
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'views'));
 // Rotas
 app.use('/', require('./routes/index'));
 
