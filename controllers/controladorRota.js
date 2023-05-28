@@ -6,7 +6,7 @@ const path = require('path');
 const index = function (request, response, next) {
   const jsFiles = ['controller.js'];
 
-  return response.render('./home', {
+  return response.render('../home', {
     layout: MASTER_DIR,
     jsFiles: { files: jsFiles },
   });
