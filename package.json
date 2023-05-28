@@ -2,10 +2,10 @@
   "name": "app",
   "version": "1.0.0",
   "description": "Aplicação de Gerar Recimos",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon -e hbs, js app.js"
+    "start": "node index.js",
+    "dev": "nodemon -e hbs, js index.js"
   },
   "author": "Diego Sabino Melo",
   "dependencies": {
