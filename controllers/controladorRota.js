@@ -2,6 +2,7 @@ const { MASTER_DIR } = require('../helpers/constants');
 const PDFDocument = require('pdfkit');
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 
 const index = function (request, response, next) {
   const jsFiles = ['controller.js'];
@@ -66,22 +67,20 @@ const add = function (req, res, next) {
 
   doc.end();
 
-  const filesPath = path.join(__dirname, '..', 'files');
-
-  if (!fs.existsSync(filesPath)) {
-    fs.mkdirSync(filesPath);
-  }
+  const tmpDir = os.tmpdir(); // Obter o diretório temporário padrão do sistema
 
   const fileName = `pedido_${Date.now()}.pdf`;
-  const filePath = path.join(filesPath, fileName);
+  const filePath = path.join(tmpDir, fileName);
 
-  if (fs.existsSync(filePath)) {
-    fs.unlinkSync(filePath);
-  }
-
-  doc.pipe(fs.createWriteStream(filePath));
-
-  res.json({ fileName: fileName, filePath: filePath });
+  doc
+    .pipe(fs.createWriteStream(filePath))
+    .on('finish', function () {
+      res.json({ fileName: fileName, filePath: filePath });
+    })
+    .on('error', function (err) {
+      console.log('Erro ao escrever o arquivo PDF:', err);
+      res.status(500).send('Erro ao criar o arquivo PDF');
+    });
 };
 
 const download = function (req, res, next) {
