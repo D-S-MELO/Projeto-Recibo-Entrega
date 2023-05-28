@@ -134,7 +134,6 @@ function enviarDadosTabela() {
         produto: produto,
         quantidade: quantidade,
       };
-
       // Adiciona o objeto de dados ao array
       produtos.push(linha);
     }
@@ -157,26 +156,56 @@ function enviarDadosTabela() {
     assinatura,
   };
 
-  $.ajax({
-    url: '/gerar-pdf', // URL da rota Node.js
-    type: 'POST',
-    dataType: 'json',
-    data: JSON.stringify(dados), // Converte os dados para JSON
-    contentType: 'application/json',
-    success: function (response) {
-      var fileName = response.fileName;
-      var filePath = response.filePath;
-      var downloadUrl =
-        '/download-pdf?fileName=' +
-        encodeURIComponent(fileName) +
-        '&filePath=' +
-        encodeURIComponent(filePath);
-      window.location.href = downloadUrl;
-    },
-    error: function (xhr, status, error) {
-      console.log('Error generating PDF');
-      console.log('Status:', status);
-      console.log('Error:', error);
-    },
-  });
+  //Validação do Formulário para impedir campos em branco
+  if (dados.produtos && dados.local && dados.valor) {
+    $.ajax({
+      url: '/gerar-pdf', // URL da rota Node.js
+      type: 'POST',
+      dataType: 'json',
+      data: JSON.stringify(dados), // Converte os dados para JSON
+      contentType: 'application/json',
+      success: function (response) {
+        var fileName = response.fileName;
+        var filePath = response.filePath;
+        var downloadUrl =
+          '/download-pdf?fileName=' +
+          encodeURIComponent(fileName) +
+          '&filePath=' +
+          encodeURIComponent(filePath);
+        window.location.href = downloadUrl;
+      },
+      error: function (xhr, status, error) {
+        console.log('Error generating PDF');
+        console.log('Status:', status);
+        console.log('Error:', error);
+      },
+    });
+  } else {
+    const produtos = dados.produtos;
+    const local = dados.local;
+    const valor = dados.valor;
+    let camposNaoPreenchidos = '';
+
+    if (produtos.length === 0) {
+      camposNaoPreenchidos += 'Produtos\n';
+    }
+
+    if (!local) {
+      camposNaoPreenchidos += 'Local de Entrega\n';
+    }
+
+    if (!valor) {
+      camposNaoPreenchidos += 'Valor Total do Recibo\n';
+    }
+
+    console.log(produtos, local, valor);
+    swal({
+      title: 'Atenção Preencha os Campos!',
+      text: camposNaoPreenchidos,
+      icon: 'warning',
+      button: 'Ok',
+      width: '22em',
+    });
+  }
+  console.log(dados.produtos);
 }

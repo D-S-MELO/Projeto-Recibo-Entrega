@@ -8,7 +8,7 @@
         <div class="card-body bg-light">
           <form id="addRecibo">
             <div class="form-group">
-              <label for="form_local">Local de Entrega</label>
+              <label for="form_local">Local de Entrega *</label>
               <input id="form_local" name="local" class="form-control" required="required" />
             </div>
             <div class="form-group">
@@ -18,13 +18,13 @@
             <div class="row">
               <div class="col-md-5">
                 <div class="form-group">
-                  <label for="form_produto">Produto</label>
+                  <label for="form_produto">Produto *</label>
                   <input id="form_produto" class="form-control" />
                 </div>
               </div>
               <div class="col-md-5">
                 <div class="form-group">
-                  <label for="form_qtd">Quantidade</label>
+                  <label for="form_qtd">Quantidade *</label>
                   <input id="form_qtd" type="number" class="form-control" />
                 </div>
               </div>
@@ -47,21 +47,20 @@
                       <th>Ação</th>
                     </tr>
                   </thead>
-                  <!-- Table body will be dynamically populated -->
                 </table>
               </div>
             </div>
             <div class="row">
               <div class="col-md-12">
                 <div class="text-center mt-5">
-                  <h4>Assinatura</h4>
+                  <h4>Assinatura *</h4>
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-12">
                 <div id="containerAssinatura">
-                  <canvas id="signature-pad" style="width: 100%; height: auto;""></canvas>
+                  <canvas id="signature-pad" style="width: 90%; height: auto;""></canvas>
                 </div>
               </div>
             </div>
